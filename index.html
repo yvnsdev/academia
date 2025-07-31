@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AcademIA</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+  <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="assets/logo.png" alt="Logo AcademIA" class="logo-img-small" style="height: 50px;">
+      <h3>AcademIA</h3>
+    </div>
+    <div class="sidebar-menu">
+      <ul class="main-menu">
+        <li class="menu-item" onclick="mostrarSeccion('cursos')">
+          <i class="fas fa-book-open"></i>
+          <span>Dashboard</span>
+        </li>
+        <li class="menu-item" onclick="mostrarSeccion('participantes')">
+          <i class="fas fa-users"></i>
+          <span>Participantes</span>
+        </li>
+        <li class="menu-item" onclick="mostrarSeccion('calendario')">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Calendario</span>
+        </li>
+        <li class="menu-item" onclick="mostrarSeccion('videochat')">
+          <i class="fas fa-video"></i>
+          <span>Videochat</span>
+        </li>
+        <li class="menu-item" onclick="mostrarSeccion('calificaciones')">
+          <i class="fas fa-star"></i>
+          <span>Calificaciones</span>
+        </li>
+      </ul>
+      <div class="auth-section">
+        <button id="loginBtn" class="auth-btn"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</button>
+        <button id="logoutBtn" class="auth-btn" style="display: none;">
+          <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </button>
+        <span id="userEmail" class="user-info"></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <h1>Academia de Inteligencia Artificial</h1>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- En index.html, dentro del main-content, antes o después del container -->
+    <div id="welcome-section" class="welcome-container">
+      <div class="welcome-content">
+        <h1><i class="fas fa-graduation-cap"></i> Bienvenido a AcademIA</h1>
+        <p>Plataforma educativa para el aprendizaje de inteligencia artificial</p>
+
+        <div class="welcome-features">
+          <div class="feature">
+            <i class="fas fa-book"></i>
+            <h3>Cursos completos</h3>
+            <p>Accede a material educativo de calidad sobre IA</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-tasks"></i>
+            <h3>Tareas y ejercicios</h3>
+            <p>Practica lo aprendido con actividades interactivas</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-video"></i>
+            <h3>Recursos multimedia</h3>
+            <p>Aprende con videos, presentaciones y artículos</p>
+          </div>
+        </div>
+
+        <button onclick="mostrarModalAuth()" class="welcome-btn">
+          <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+        </button>
+        <p class="welcome-note">¿No tienes cuenta? <a href="#"
+            onclick="mostrarModalAuth(); document.querySelector('.auth-tab[data-tab=\'register\']').click()">Regístrate
+            aquí</a></p>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Vista principal de cursos -->
+      <section id="cursos-section" class="active">
+        <h2><i class="fas fa-tachometer-alt"></i> Panel de Control</h2>
+
+        <div class="dashboard-grid" id="listaCursos">
+          <!-- Tarjetas de estadísticas -->
+          <div class="stats-card">
+            <h3>Cursos Activos</h3>
+            <div class="value" id="total-cursos">0</div>
+            <div class="label">Total de cursos creados</div>
+          </div>
+
+          <div class="stats-card">
+            <h3>Guías</h3>
+            <div class="value" id="total-guias">0</div>
+            <div class="label">Materiales de estudio</div>
+          </div>
+
+          <div class="stats-card">
+            <h3>Tareas</h3>
+            <div class="value" id="total-tareas">0</div>
+            <div class="label">Actividades pendientes</div>
+          </div>
+
+          <div class="stats-card">
+            <h3>Cápsulas</h3>
+            <div class="value" id="total-capsulas">0</div>
+            <div class="label">Recursos multimedia</div>
+          </div>
+
+          <!-- Actividad reciente -->
+          <div class="recent-activity">
+            <h3><i class="fas fa-history"></i> Actividad Reciente</h3>
+            <div id="activity-feed">
+              <!-- Se llenará dinámicamente con JavaScript -->
+              <div class="no-items">No hay actividad reciente</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="course-title" style="margin-top: 30px;"><i class="fas fa-book-open"></i> Crear Nuevo Curso</h2>
+
+        <div class="form-container">
+          <div class="form-row">
+            <input type="text" id="cursoNombre" placeholder="Nombre del curso">
+            <input type="text" id="cursoDescripcion" placeholder="Descripción">
+            <input type="color" id="cursoColor" value="#2582a8" title="Color del curso">
+            <button id="agregarCurso"><i class="fas fa-plus"></i> Agregar Curso</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vista detalle de un curso -->
+      <section id="curso-detalle-section">
+        <div class="curso-header">
+          <button id="volverCursos" class="back-btn"><i class="fas fa-arrow-left"></i> Volver al panel</button>
+          <h2 id="curso-titulo"></h2>
+          <p id="curso-descripcion"></p>
+        </div>
+
+        <nav class="curso-nav">
+          <button id="btnPresentacion" class="active"><i class="fas fa-info-circle"></i> Presentación</button>
+          <button id="btnGuias"><i class="fas fa-file-alt"></i> Guías</button>
+          <button id="btnTareas"><i class="fas fa-tasks"></i> Tareas</button>
+          <button id="btnCapsulas"><i class="fas fa-video"></i> Cápsulas</button>
+        </nav>
+
+        <!-- Contenido dinámico del curso -->
+        <div id="curso-contenido">
+          <!-- Sección de Guías -->
+          <section id="presentacion-section" class="curso-seccion active">
+            <div class="curso-presentacion">
+              <div class="curso-portada" style="background-color: var(--curso-color)">
+                <div class="course-header" style="background: radial-gradient(circle at 50% 0, var(--curso-color) 25%, transparent 25%),
+                    radial-gradient(circle at 6.7% 75%, var(--curso-color) 25%, transparent 25%),
+                    radial-gradient(circle at 93.3% 75%, var(--curso-color) 25%, transparent 25%);
+                    background-color: var(--curso-color-oscuro);
+                    background-size: 500px 500px;">
+                  <h2 id="curso-titulo-presentacion"></h2>
+                  <p id="curso-descripcion-presentacion"></p>
+                  <i class="fas fa-book-open header-icon"></i>
+                </div>
+              </div>
+
+
+              <div class="curso-detalles">
+                <div class="curso-info">
+                  <h3><i class="fas fa-info-circle"></i> Información del Curso</h3>
+                  <div class="info-grid">
+                    <div class="info-item">
+                      <i class="fas fa-user-tie"></i>
+                      <span id="curso-profesor"></span>
+                    </div>
+                    <div class="info-item">
+                      <i class="fas fa-calendar-alt"></i>
+                      <span id="curso-fecha-creacion"></span>
+                    </div>
+                    <div class="info-item">
+                      <i class="fas fa-book"></i>
+                      <span id="curso-total-guias"></span>
+                    </div>
+                    <div class="info-item">
+                      <i class="fas fa-tasks"></i>
+                      <span id="curso-total-tareas"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- En la sección de presentación del curso -->
+                <div class="curso-objetivos">
+                  <div class="section-header">
+                    <h3><i class="fas fa-bullseye"></i> Objetivos</h3>
+                    <button id="btnEditarObjetivos" class="btn-edit-small"><i class="fas fa-edit"></i> Editar</button>
+                  </div>
+                  <div id="curso-objetivos-content"></div>
+                </div>
+
+                <div class="curso-requisitos">
+                  <div class="section-header">
+                    <h3><i class="fas fa-clipboard-check"></i> Requisitos</h3>
+                    <button id="btnEditarRequisitos" class="btn-edit-small"><i class="fas fa-edit"></i> Editar</button>
+                  </div>
+                  <div id="curso-requisitos-content"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="guias-section" class="curso-seccion">
+            <div class="form-container">
+              <input type="text" id="guiaTitulo" placeholder="Título de la guía" required>
+              <textarea id="guiaContenido" placeholder="Contenido (formato Markdown)" required></textarea>
+              <div class="form-group">
+                <label for="guiaArchivos"><i class="fas fa-paperclip"></i> Archivos adjuntos (opcional):</label>
+                <input type="file" id="guiaArchivos" multiple>
+                <div id="guiaArchivosPreview" class="files-preview"></div>
+              </div>
+              <div class="form-row">
+                <label for="guiaVisibilidad">Visibilidad:</label>
+                <select id="guiaVisibilidad">
+                  <option value="publico">Público</option>
+                  <option value="privado">Privado</option>
+                </select>
+              </div>
+              <button id="agregarGuia"><i class="fas fa-plus"></i> Agregar Guía</button>
+            </div>
+            <div class="list-container" id="listaGuias"></div>
+          </section>
+
+          <!-- Sección de Tareas -->
+          <section id="tareas-section" class="curso-seccion">
+            <div class="form-container">
+              <input type="text" id="tareaTitulo" placeholder="Título de la tarea" required>
+              <textarea id="tareaDescripcion" placeholder="Descripción detallada" required></textarea>
+              <div class="form-row">
+                <label for="tareaFecha"><i class="far fa-calendar-alt"></i> Fecha límite:</label>
+                <input type="datetime-local" id="tareaFecha" required>
+              </div>
+              <div class="form-row">
+                <label for="tareaPuntos"><i class="fas fa-star"></i> Puntos:</label>
+                <input type="number" id="tareaPuntos" min="0" value="10">
+              </div>
+              <div class="form-group">
+                <label for="tareaArchivos"><i class="fas fa-paperclip"></i> Archivos adjuntos (opcional):</label>
+                <input type="file" id="tareaArchivos" multiple>
+                <div id="tareaArchivosPreview" class="files-preview"></div>
+              </div>
+              <button id="agregarTarea"><i class="fas fa-plus"></i> Agregar Tarea</button>
+            </div>
+            <div class="list-container" id="listaTareas"></div>
+          </section>
+
+          <!-- Sección de Cápsulas -->
+          <section id="capsulas-section" class="curso-seccion">
+            <div class="form-container">
+              <input type="text" id="capsulaTitulo" placeholder="Título de la cápsula" required>
+              <div class="form-row">
+                <label for="capsulaTipo"><i class="fas fa-tag"></i> Tipo:</label>
+                <select id="capsulaTipo">
+                  <option value="video">Video</option>
+                  <option value="articulo">Artículo</option>
+                  <option value="presentacion">Presentación</option>
+                </select>
+              </div>
+              <div id="capsulaUrlContainer">
+                <label for="capsulaUrl"><i class="fas fa-link"></i> URL del recurso:</label>
+                <input type="url" id="capsulaUrl" placeholder="https://ejemplo.com" required>
+              </div>
+              <textarea id="capsulaDescripcion" placeholder="Descripción y notas"></textarea>
+              <div class="form-row">
+                <label for="capsulaDuracion"><i class="far fa-clock"></i> Duración (minutos):</label>
+                <input type="number" id="capsulaDuracion" min="1">
+              </div>
+              <button id="agregarCapsula"><i class="fas fa-plus"></i> Agregar Cápsula</button>
+            </div>
+            <div class="list-container" id="listaCapsulas"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="participantes-section">
+        <div class="container">
+          <h2><i class="fas fa-users"></i> Participantes</h2>
+          <div id="lista-participantes" class="participants-grid"></div>
+        </div>
+      </section>
+
+      <!-- Sección Calendario -->
+      <section id="calendario-section">
+        <h2><i class="fas fa-calendar-alt"></i> Calendario de Tareas</h2>
+        <div id="calendar"></div>
+      </section>
+
+      <!-- Sección Videochat -->
+      <section id="videochat-section">
+        <h2><i class="fas fa-video"></i> Videochat</h2>
+        <div class="videochat-container">
+          <button id="crearReunionBtn" class="btn-primary">
+            <i class="fas fa-plus"></i> Crear nueva reunión
+          </button>
+          <div id="lista-reuniones" class="meetings-list"></div>
+        </div>
+      </section>
+
+      <!-- Sección Calificaciones -->
+      <section id="calificaciones-section">
+        <h2><i class="fas fa-star"></i> Calificaciones</h2>
+        <div class="grades-container">
+          <div class="grades-controls">
+            <select id="curso-select-grades" class="form-select">
+              <option value="">Seleccionar curso</option>
+            </select>
+            <button id="actualizar-calificaciones" class="btn-secondary">
+              <i class="fas fa-sync-alt"></i> Actualizar
+            </button>
+          </div>
+          <div id="tabla-calificaciones" class="grades-table"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Modal para edición -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="script.js"></script>
+  <!-- FullCalendar -->
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/es.min.js'></script>
+
+  <!-- Jitsi Meet (para videochat) -->
+  <script src='https://meet.jit.si/external_api.js'></script>
+</body>
+
+</html>
