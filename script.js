@@ -10,7 +10,7 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 const style = document.createElement('style');
 style.textContent = `
   /* Estilos generales para modales y formularios */
-  .auth-modal {
+.auth-modal {
     max-width: 500px;
     margin: 0 auto;
     background: white;
@@ -37,11 +37,11 @@ style.textContent = `
   }
   .auth-tab:hover {
     color: white;
-    background: #2582a8; !important;
+    background: #a82525 !important;
   }
 
   .auth-tab.active {
-    background: #2582a8;
+    background: #a82525;
     color: white;
   }
   
@@ -78,14 +78,14 @@ style.textContent = `
   
   .form-group input:focus,
   .form-group textarea:focus {
-    border-color: #2582a8;
+    border-color: #a82525;
     outline: none;
   }
   
   .auth-submit {
     width: 100%;
     padding: 12px;
-    background: #2582a8;
+    background: #a82525;
     color: white;
     border: none;
     border-radius: 6px;
@@ -96,7 +96,7 @@ style.textContent = `
   }
   
   .auth-submit:hover {
-    background: #1a6a8a;
+    background: #8a1a1a;
   }
   
   /* Estilos para tarjetas de cursos */
@@ -117,7 +117,7 @@ style.textContent = `
   .course-header {
     height: 120px;
     position: relative;
-    background: linear-gradient(135deg, #2582a8, #1a6a8a);
+    background: linear-gradient(135deg, #a82525, #8a1a1a);
   }
   
   .course-body {
@@ -168,7 +168,7 @@ style.textContent = `
   }
   
   .btn-entrar {
-    background: #2582a8;
+    background: #a82525;
     color: white;
   }
   
@@ -179,12 +179,12 @@ style.textContent = `
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    border-left: 4px solid #2582a8;
+    border-left: 4px solid #a82525;
   }
   
   .item.completada {
     opacity: 0.8;
-    border-left-color: #2ecc71;
+    border-left-color: #71cc2e;
   }
   
   .item h3 {
@@ -231,7 +231,7 @@ style.textContent = `
   }
   
   .badge-publico {
-    background: #2ecc71;
+    background: #71cc2e;
   }
   
   .badge-privado {
@@ -239,11 +239,11 @@ style.textContent = `
   }
   
   .badge-owner {
-    background: #2582a8;
+    background: #a82525;
   }
   
   .badge-inactivo {
-    background: #95a5a6;
+    background: #a69595;
   }
   
   /* Enlaces */
@@ -266,7 +266,7 @@ style.textContent = `
   }
   
   .enlace-item a {
-    color: #2582a8;
+    color: #a82525;
     text-decoration: none;
   }
   
@@ -304,7 +304,7 @@ style.textContent = `
   }
   
   .add-enlace-btn {
-    background: #2582a8;
+    background: #a82525;
     color: white;
     border: none;
     border-radius: 4px;
@@ -329,7 +329,7 @@ style.textContent = `
   }
   
   .enlace-preview a {
-    color: #2582a8;
+    color: #a82525;
     text-decoration: none;
   }
   
